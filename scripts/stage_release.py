@@ -220,19 +220,12 @@ def stage_release(
 
     archive_name = f"{stem}-{tag_slug}.zip"
     archive_path = out_dir / archive_name
-    # Jazz Jackrabbit: the game data is not distributable. Ship the tool
-    # that builds the .jj pack from the user's own copy of the game, with
-    # the jj_render programs it runs (tools/build_renderers.sh → tools/bin/).
+    # Jazz Jackrabbit: game data is not distributable. Users create the .jj
+    # pack in the browser Page, where the WebAssembly converter runs locally.
     members = [(sd_bin, f"{sd_dir}/{packed_name}")]
-    for extra in (ROOT / "tools" / "jj_pack.py", ROOT / "INSTALL.md", ROOT / "LICENSE"):
+    for extra in (ROOT / "INSTALL.md", ROOT / "LICENSE"):
         if extra.exists():
             members.append((extra, extra.name))
-    renderers = sorted((ROOT / "tools" / "bin").glob("jj_render-*"))
-    if not renderers:
-        print("warning: no jj_render in tools/bin (run tools/build_renderers.sh)",
-              file=sys.stderr)
-    for r in renderers:
-        members.append((r, f"jj_render/{r.name}"))
     write_zip(archive_path, members)
 
     debug_archive_name = f"{stem}-{tag_slug}-debug.zip"

@@ -86,13 +86,6 @@ make            # → Jazz.bin
 make docker     # same, inside the Retro-Go SD builder image
 ```
 
-`jj_render` (the harness, below) is cross-built with zig:
-
-```
-pip install ziglang
-tools/build_renderers.sh    # → tools/bin/jj_render-<os>-<arch>
-```
-
 ### Testing without hardware
 
 `harness/` builds the same game and port code for Linux, headless, with a
@@ -123,7 +116,7 @@ mapped read-only, like the flash.
 | `src/port/jj_file.c`, `jj_pack.c` | Files of the game: in the pack (flash) or on the SD card. |
 | `src/port/jj_main.c` | Retro-Go side: entry point, display, audio, buttons, pause menu. |
 | `src/port/jj_render.cpp` | Music rendering (PC only). |
-| `tools/jj_pack.py` | Builds the `.jj` pack. |
+| `tools/extractor/` | WebAssembly asset converter used by the browser packer Page. |
 | `harness/` | Headless test harness, also `jj_render`. |
 | `sdk/` | Retro-Go SD core / homebrew SDK (from retro-go-sd-templates). |
 

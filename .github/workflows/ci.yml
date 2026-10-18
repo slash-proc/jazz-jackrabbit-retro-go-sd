@@ -96,16 +96,10 @@ jobs:
           name: build-artifacts
           path: dist
 
-      - name: Set up Python (zig for the music renderers)
+      - name: Set up Python for release staging
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
-      - name: Build the music renderers (Linux, Windows, macOS)
-        run: |
-          set -euo pipefail
-          python3 -m pip install ziglang
-          tools/build_renderers.sh
 
       - name: Stage release assets
         run: |

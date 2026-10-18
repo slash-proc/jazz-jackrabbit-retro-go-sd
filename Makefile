@@ -6,7 +6,7 @@
 #
 # SD card (Retro-Go SD v2.0.0 or later):
 #   /homebrews/Jazz.bin   (this homebrew)
-#   /homebrews/Jazz.jj    (game data: tools/jj_pack.py, same name)
+#   /homebrews/Jazz.jj    (game data: generated with the browser packer Page)
 #
 # Verbose compiler lines: make V=
 
