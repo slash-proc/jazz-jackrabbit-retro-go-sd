@@ -15,7 +15,7 @@
 #######################################
 PROJECT_KIND := homebrew
 
-CORE_NAME  := jj
+CORE_NAME  := jazz-jackrabbit
 CORE_ENTRY := app_main
 
 HB_NAME    := Jazz Jackrabbit

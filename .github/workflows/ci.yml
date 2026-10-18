@@ -64,7 +64,7 @@ jobs:
             "${{ env.DOCKER_IMAGE }}" \
             make --no-print-directory -j"$(nproc)" all
 
-      - name: Build standalone browser converter
+      - name: Build isolated GWRG WASM converter
         run: tools/extractor/build.sh
 
       - name: Upload build artifacts
@@ -125,6 +125,24 @@ jobs:
             --out release \
             --docker-image "${{ env.DOCKER_IMAGE }}"
 
+      - name: Build GWRG manifest and offline bundle
+        run: |
+          set -euo pipefail
+          mkdir -p release/gwrg
+          cp "dist/${{ needs.build.outputs.packed_bin }}" release/gwrg/Jazz.bin
+          cp dist/tools/extractor/build/jazz-assets.wasm release/gwrg/jazz-assets.wasm
+          python3 scripts/make_manifest.py \
+            --bin release/gwrg/Jazz.bin \
+            --wasm release/gwrg/jazz-assets.wasm \
+            --tag "${GITHUB_REF_NAME}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --commit "${GITHUB_SHA}" \
+            --out release/gwrg/manifest.json
+          python3 scripts/make_bundle.py \
+            --manifest release/gwrg/manifest.json \
+            --dir release/gwrg \
+            --out "release/gwrg/jazz-jackrabbit-${GITHUB_REF_NAME}-bundle.zip"
+
       - name: Create GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -136,6 +154,12 @@ jobs:
           for name in "${names[@]}"; do
             files+=("release/${name}")
           done
+          files+=(
+            release/gwrg/manifest.json
+            release/gwrg/Jazz.bin
+            release/gwrg/jazz-assets.wasm
+            "release/gwrg/jazz-jackrabbit-${GITHUB_REF_NAME}-bundle.zip"
+          )
           # The release may already exist (made on github.com, which also
           # makes the tag): add / replace the files and the notes.
           if gh release view "${TAG}" >/dev/null 2>&1; then
@@ -149,8 +173,13 @@ jobs:
           fi
 
   pages:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: build
+    if: >-
+      always() &&
+      ((github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+       (github.event_name == 'release' && startsWith(github.ref, 'refs/tags/v'))) &&
+      needs.build.result == 'success' &&
+      (needs.release.result == 'success' || needs.release.result == 'skipped')
+    needs: [build, release]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -172,12 +201,35 @@ jobs:
           name: build-artifacts
           path: dist
 
-      - name: Build the browser converter
+      - name: Build the browser converter and mirror published releases
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           tools/browser/build-page.sh "${RUNNER_TEMP}/jazz-pages" \
             "${GITHUB_WORKSPACE}/dist/${{ needs.build.outputs.packed_bin }}" \
             "${GITHUB_WORKSPACE}/dist/tools/extractor/build/jazz-assets.wasm"
+          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
+            python3 scripts/build_dist.py --repo "${GITHUB_REPOSITORY}" \
+              --out "${RUNNER_TEMP}/jazz-pages/dist" --retain 5 \
+              --require-tag "${GITHUB_REF_NAME}"
+          else
+            has_manifest=false
+            while IFS= read -r tag; do
+              if gh release view "${tag}" --repo "${GITHUB_REPOSITORY}" \
+                  --json assets --jq '.assets[].name' | grep -qx manifest.json; then
+                has_manifest=true
+                break
+              fi
+            done < <(gh release list --repo "${GITHUB_REPOSITORY}" \
+              --limit 100 --json tagName --jq '.[].tagName')
+            if [[ "${has_manifest}" == true ]]; then
+              python3 scripts/build_dist.py --repo "${GITHUB_REPOSITORY}" \
+                --out "${RUNNER_TEMP}/jazz-pages/dist" --retain 5
+            else
+              mkdir -p "${RUNNER_TEMP}/jazz-pages/dist"
+            fi
+          fi
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

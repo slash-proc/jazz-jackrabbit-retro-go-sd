@@ -22,12 +22,17 @@ episode or Holiday Hare (`BLOCKS.000`, `LEVEL0.000`, `SPRITES.000`,
 
 Requires Retro-Go SD **v2.0.0-rc1 or later** (firmware ABI v2).
 
-1. Build the game data pack (Python 3 only, nothing else to install):
-   ```
-   python3 jj_pack.py Jazz.jj /path/to/JAZZ
-   ```
-   On Windows: `py jj_pack.py Jazz.jj C:\Games\Jazz`
-2. Copy both files to the SD card, side by side, with the same name:
+You can make the SD-card ZIP in the browser at the
+[Jazz Jackrabbit packer](https://slash-proc.github.io/jazz-jackrabbit-retro-go-sd/).
+Choose the folder containing the DOS game files; the page creates a ZIP with
+`homebrews/Jazz.bin` and `homebrews/Jazz.jj`. The browser does the conversion
+on your device. Your game files are not uploaded.
+
+1. Download the ZIP made by the browser packer above. The page processes the
+   selected game folder on your device and does not upload game files.
+2. Install the ZIP to a Retro-Go profile with
+   [`gwprov project install`](https://github.com/slash-proc/gwprov#readme), or
+   extract both files to the SD card, side by side, with the same name:
    ```
    /homebrews/Jazz.bin
    /homebrews/Jazz.jj
@@ -37,27 +42,17 @@ Requires Retro-Go SD **v2.0.0-rc1 or later** (firmware ABI v2).
 The first start copies the pack to the external flash (a few minutes); the
 game then uses its data in place from there.
 
-### What jj_pack.py does
+The converter pre-decodes pictures and renders music in WebAssembly in your
+browser. The generated pack must fit in the external flash of the console; if
+it does not, the console says "Pack too big for the flash".
 
-The console has about 600 KB of RAM for the game; OpenJazz decodes about
-1 MB of pictures for a level and plays its music with a module player that
-loads whole modules in RAM. So `jj_pack.py` runs the game itself on your
-computer (`jj_render`, shipped for Windows, macOS and Linux in `jj_render/`
-next to the script) to:
+### Build the browser converter
 
-- **pre-decode every picture** of the game (tiles, sprites, fonts, menus,
-  scenes) into `SURFACES.BAK`: the console uses them in place from its flash;
-- **render the music** (the `*.PSM` modules) to samples with their exact loop
-  points: the console plays them back.
-
-| Option | Pack size (full game) | Music |
-|---|---|---|
-| *(default)* | ~32 MB | IMA ADPCM, 11 kHz |
-| `--music-codec pcm` | ~73 MB | 16 bit PCM, 11 kHz (no hiss) |
-| `--no-music` | ~18 MB | none |
-
-The pack must fit in the external flash of the console; if it does not, the
-console says "Pack too big for the flash".
+The standalone WebAssembly converter has no imports, so it has no filesystem,
+network or JavaScript bridge. Build it with Docker using
+`tools/extractor/build.sh`; assemble the static Page with
+`tools/browser/build-page.sh`. The Pages workflow publishes the Page with the
+matching homebrew binary and converter module.
 
 ## Controls
 
