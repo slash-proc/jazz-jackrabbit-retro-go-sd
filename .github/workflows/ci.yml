@@ -9,9 +9,6 @@ on:
   pull_request:
     branches:
       - main
-  # a release made on github.com (it also makes the tag)
-  release:
-    types: [published]
 
 # Cancel superseded runs on the same ref (keeps PR feedback fast).
 concurrency:
@@ -79,7 +76,7 @@ jobs:
           if-no-files-found: error
 
   release:
-    if: (github.event_name == 'push' || github.event_name == 'release') && startsWith(github.ref, 'refs/tags/v')
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     needs: build
     runs-on: ubuntu-latest
     permissions:
@@ -173,12 +170,7 @@ jobs:
           fi
 
   pages:
-    if: >-
-      always() &&
-      ((github.event_name == 'push' && github.ref == 'refs/heads/main') ||
-       (github.event_name == 'release' && startsWith(github.ref, 'refs/tags/v'))) &&
-      needs.build.result == 'success' &&
-      (needs.release.result == 'success' || needs.release.result == 'skipped')
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     needs: [build, release]
     runs-on: ubuntu-latest
     permissions:
@@ -201,35 +193,23 @@ jobs:
           name: build-artifacts
           path: dist
 
-      - name: Build the browser converter and mirror published releases
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Build the browser converter Page
         run: |
           set -euo pipefail
           tools/browser/build-page.sh "${RUNNER_TEMP}/jazz-pages" \
             "${GITHUB_WORKSPACE}/dist/${{ needs.build.outputs.packed_bin }}" \
             "${GITHUB_WORKSPACE}/dist/tools/extractor/build/jazz-assets.wasm"
-          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
-            python3 scripts/build_dist.py --repo "${GITHUB_REPOSITORY}" \
-              --out "${RUNNER_TEMP}/jazz-pages/dist" --retain 5 \
-              --require-tag "${GITHUB_REF_NAME}"
-          else
-            has_manifest=false
-            while IFS= read -r tag; do
-              if gh release view "${tag}" --repo "${GITHUB_REPOSITORY}" \
-                  --json assets --jq '.assets[].name' | grep -qx manifest.json; then
-                has_manifest=true
-                break
-              fi
-            done < <(gh release list --repo "${GITHUB_REPOSITORY}" \
-              --limit 100 --json tagName --jq '.[].tagName')
-            if [[ "${has_manifest}" == true ]]; then
-              python3 scripts/build_dist.py --repo "${GITHUB_REPOSITORY}" \
-                --out "${RUNNER_TEMP}/jazz-pages/dist" --retain 5
-            else
-              mkdir -p "${RUNNER_TEMP}/jazz-pages/dist"
-            fi
-          fi
+
+      - name: Mirror published releases into dist/
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 scripts/build_dist.py \
+            --repo "${GITHUB_REPOSITORY}" \
+            --out "${RUNNER_TEMP}/jazz-pages/dist" \
+            --retain 5 \
+            --require-tag "${GITHUB_REF_NAME}"
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
