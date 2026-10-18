@@ -3,7 +3,7 @@
  *
  * Runs the game through the same core, mini SDL, heap and asset pack code
  * as the Game & Watch, with a virtual clock (the game runs as fast as the
- * host can), scripted buttons and frame/audio dumps. The pack is mapped
+ * host can), scripted buttons and frame/audio dumps. The pack is loaded
  * read-only, like the external flash of the console.
  *
  *   ./jj_host <pack.jj> [options]
@@ -33,10 +33,12 @@
 #include <string.h>
 #include <stdint.h>
 #include <stdbool.h>
-#ifndef _WIN32
+#if !defined(_WIN32) && !defined(__EMSCRIPTEN__)
 #include <sys/mman.h>
 #else
+#ifndef __EMSCRIPTEN__
 #include <direct.h>
+#endif
 #endif
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -336,7 +338,7 @@ int main(int argc, char **argv)
         }
     }
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__EMSCRIPTEN__)
     FILE *pf = fopen(pack_path, "rb");
     if (!pf) {
         perror(pack_path);

@@ -152,6 +152,11 @@ bool File::exists (const char * fileName, int pathType) {
 
 	bool exists = false;
 
+#ifdef JJ_GWRG_WASM
+	(void)pathType;
+	return jjf_access(fileName, F_OK) == 0;
+#endif
+
 	Path* path = gamePaths.paths;
 	while (path) {
 		// skip other paths

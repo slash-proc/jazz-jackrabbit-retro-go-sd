@@ -165,35 +165,68 @@ static int cmp_rec(const void *a, const void *b)
     return x->hash < y->hash ? -1 : x->hash > y->hash;
 }
 
-int jj_bake_write(const char *path)
+int jj_bake_build_memory(uint8_t **data, uint32_t *size)
 {
-    qsort(g_recs, g_nrecs, sizeof(rec_t), cmp_rec);
-    FILE *f = fopen(path, "wb");
-    if (!f)
+    if (!data || !size)
         return -1;
-    uint32_t off = 8 + g_nrecs * ENTRY_SIZE;
-    fwrite("GWBK", 1, 4, f);
-    fwrite(&g_nrecs, 4, 1, f);
-    uint32_t o = off;
+    qsort(g_recs, g_nrecs, sizeof(rec_t), cmp_rec);
+    uint64_t total = 8 + (uint64_t)g_nrecs * ENTRY_SIZE;
     for (uint32_t i = 0; i < g_nrecs; i++) {
-        uint8_t e[ENTRY_SIZE];
+        uint32_t n = (uint32_t)g_recs[i].w * g_recs[i].h;
+        total += (n + 3u) & ~3u;
+    }
+    if (total > UINT32_MAX)
+        return -1;
+    uint8_t *out = (uint8_t *)malloc((size_t)total);
+    if (!out)
+        return -1;
+    memcpy(out, "GWBK", 4);
+    memcpy(out + 4, &g_nrecs, 4);
+    uint32_t offset = 8 + g_nrecs * ENTRY_SIZE;
+    uint32_t cursor = offset;
+    for (uint32_t i = 0; i < g_nrecs; i++) {
+        uint8_t *e = out + 8 + i * ENTRY_SIZE;
         memcpy(e, &g_recs[i].hash, 8);
         memcpy(e + 8, &g_recs[i].w, 2);
         memcpy(e + 10, &g_recs[i].h, 2);
-        memcpy(e + 12, &o, 4);
-        fwrite(e, 1, ENTRY_SIZE, f);
-        o += ((uint32_t)g_recs[i].w * g_recs[i].h + 3) & ~3u;
+        memcpy(e + 12, &cursor, 4);
+        uint32_t n = (uint32_t)g_recs[i].w * g_recs[i].h;
+        cursor += (n + 3u) & ~3u;
     }
-    uint64_t total = 0;
+    cursor = offset;
+    uint64_t pixels = 0;
     for (uint32_t i = 0; i < g_nrecs; i++) {
         uint32_t n = (uint32_t)g_recs[i].w * g_recs[i].h;
-        fwrite(g_recs[i].pixels, 1, n, f);
-        static const uint8_t pad[4];
-        fwrite(pad, 1, ((n + 3) & ~3u) - n, f);
-        total += n;
+        memcpy(out + cursor, g_recs[i].pixels, n);
+        cursor += n;
+        while (cursor & 3u)
+            out[cursor++] = 0;
+        pixels += n;
     }
-    fclose(f);
-    printf("bake: %u pictures, %llu bytes\n", g_nrecs, (unsigned long long)total);
+    *data = out;
+    *size = (uint32_t)total;
+#ifndef JJ_GWRG_WASM
+    printf("bake: %u pictures, %llu bytes\n", g_nrecs, (unsigned long long)pixels);
+#endif
     return 0;
 }
+
+#ifndef JJ_GWRG_WASM
+int jj_bake_write(const char *path)
+{
+    uint8_t *data = NULL;
+    uint32_t size = 0;
+    if (jj_bake_build_memory(&data, &size) != 0)
+        return -1;
+    FILE *f = fopen(path, "wb");
+    if (!f) {
+        free(data);
+        return -1;
+    }
+    fwrite(data, 1, size, f);
+    fclose(f);
+    free(data);
+    return 0;
+}
+#endif
 #endif

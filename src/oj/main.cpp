@@ -185,7 +185,7 @@ int checkOptions (int argc, char *argv[]) {
  * levels, bonus levels, planets, scenes) and write them pre-decoded to
  * `out` (SURFACES.BAK, jj_bake.c).
  */
-int oj_gnw_bake (const char *out) {
+static int oj_gnw_bake_common (void) {
 
 	platform = IPlatform::make();
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
@@ -247,7 +247,19 @@ int oj_gnw_bake (const char *out) {
 
 	delete game;
 
-	return jj_bake_write(out);
+	return 0;
+
+}
+
+int oj_gnw_bake (const char *out) {
+	int r = oj_gnw_bake_common();
+	return r == 0 ? jj_bake_write(out) : r;
+
+}
+
+int oj_gnw_bake_memory (uint8_t **data, uint32_t *size) {
+	int r = oj_gnw_bake_common();
+	return r == 0 ? jj_bake_build_memory(data, size) : r;
 
 }
 #endif
@@ -856,7 +868,7 @@ int oj_gnw_main (int startWorld, int startLevel) {
  * levels, bonus levels, planets, scenes) and write them pre-decoded to
  * `out` (SURFACES.BAK, jj_bake.c).
  */
-int oj_gnw_bake (const char *out) {
+static int oj_gnw_bake_common (void) {
 
 	platform = IPlatform::make();
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
@@ -918,7 +930,19 @@ int oj_gnw_bake (const char *out) {
 
 	delete game;
 
-	return jj_bake_write(out);
+	return 0;
+
+}
+
+int oj_gnw_bake (const char *out) {
+	int r = oj_gnw_bake_common();
+	return r == 0 ? jj_bake_write(out) : r;
+
+}
+
+int oj_gnw_bake_memory (uint8_t **data, uint32_t *size) {
+	int r = oj_gnw_bake_common();
+	return r == 0 ? jj_bake_build_memory(data, size) : r;
 
 }
 #endif

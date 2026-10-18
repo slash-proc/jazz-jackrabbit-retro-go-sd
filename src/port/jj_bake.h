@@ -26,6 +26,7 @@ const uint8_t *jj_bake_find(const uint8_t *pixels, int w, int h, int pitch);
 void jj_bake_start_recording(void);
 bool jj_bake_recording(void);
 void jj_bake_record(const uint8_t *pixels, int w, int h, int pitch);
+int  jj_bake_build_memory(uint8_t **data, uint32_t *size);
 int  jj_bake_write(const char *path);
 #endif
 

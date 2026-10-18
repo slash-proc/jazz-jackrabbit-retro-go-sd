@@ -40,6 +40,7 @@ JJFILE *jjf_open(const char *path, const char *mode)
         f->size = size;
         return f;
     }
+#ifndef JJ_GWRG_WASM
     char full[256];
     real_path(path, full, sizeof(full));
     FILE *fp = fopen(full, mode);
@@ -52,6 +53,10 @@ JJFILE *jjf_open(const char *path, const char *mode)
     }
     f->fp = fp;
     return f;
+#else
+    (void)path;
+    return NULL;
+#endif
 }
 
 int jjf_close(JJFILE *f)
@@ -124,6 +129,7 @@ int jjf_access(const char *path, int mode)
     uint32_t size;
     if (jj_plat_find_file(name, &data, &size))
         return 0;
+#ifndef JJ_GWRG_WASM
     char full[256];
     real_path(path, full, sizeof(full));
     FILE *fp = fopen(full, "rb");
@@ -131,6 +137,9 @@ int jjf_access(const char *path, int mode)
         return -1;
     fclose(fp);
     return 0;
+#else
+    return -1;
+#endif
 }
 
 const uint8_t *jjf_mapped(JJFILE *f)

@@ -64,6 +64,9 @@ jobs:
             "${{ env.DOCKER_IMAGE }}" \
             make --no-print-directory -j"$(nproc)" all
 
+      - name: Build standalone browser converter
+        run: tools/extractor/build.sh
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -72,6 +75,7 @@ jobs:
             ${{ steps.meta.outputs.packed_bin }}
             ${{ steps.meta.outputs.target_elf }}
             ${{ steps.meta.outputs.target_map }}
+            tools/extractor/build/jazz-assets.wasm
           if-no-files-found: error
 
   release:
@@ -143,3 +147,42 @@ jobs:
               --notes-file release/RELEASE_NOTES.md \
               "${files[@]}"
           fi
+
+  pages:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Download the homebrew binary
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: dist
+
+      - name: Build the browser converter
+        run: |
+          set -euo pipefail
+          tools/browser/build-page.sh "${RUNNER_TEMP}/jazz-pages" \
+            "${GITHUB_WORKSPACE}/dist/${{ needs.build.outputs.packed_bin }}" \
+            "${GITHUB_WORKSPACE}/dist/tools/extractor/build/jazz-assets.wasm"
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/jazz-pages
+
+      - id: deploy
+        uses: actions/deploy-pages@v4

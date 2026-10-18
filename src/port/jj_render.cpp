@@ -86,7 +86,7 @@ static void adpcm_encode(const int16_t *s, long n, std::vector<uint8_t> &out)
 static void put16(std::vector<uint8_t> &v, uint32_t x) { v.push_back(x & 0xFF); v.push_back((x >> 8) & 0xFF); }
 static void put32(std::vector<uint8_t> &v, uint32_t x) { put16(v, x & 0xFFFF); put16(v, x >> 16); }
 
-static bool render_one(const char *name, const uint8_t *data, uint32_t size, const char *dir, int rate, bool adpcm)
+static bool render_one(const char *name, const uint8_t *data, uint32_t size, int rate, bool adpcm, std::vector<uint8_t> &music)
 {
 	xmp_context ctx = xmp_create_context();
 	if (!ctx)
@@ -193,19 +193,14 @@ static bool render_one(const char *name, const uint8_t *data, uint32_t size, con
 		for (long i = 0; i < total; i++)
 			put16(mus, (uint16_t)out[i]);
 	}
-	char path[600];
-	snprintf(path, sizeof(path), "%s/%s.MUS", dir, stem);
-	FILE *f = fopen(path, "wb");
-	if (!f)
-		return false;
-	fwrite(mus.data(), 1, mus.size(), f);
-	fclose(f);
+	music.swap(mus);
 
 	printf("render: %s: %.1f s, loop at %.1f s (%s, rms diff %.1f)\n", name, total / (double)rate,
 		loop_start / (double)rate, how, err);
 	return true;
 }
 
+#ifndef JJ_GWRG_WASM
 extern "C" int jj_render_music(const char *dir, int rate, bool adpcm)
 {
 	int count = 0;
@@ -216,10 +211,55 @@ extern "C" int jj_render_music(const char *dir, int rate, bool adpcm)
 			continue;
 		const uint8_t *data;
 		uint32_t size;
-		if (jj_pack_find(name, &data, &size) && render_one(name, data, size, dir, rate, adpcm))
-			count++;
+		if (jj_pack_find(name, &data, &size)) {
+			std::vector<uint8_t> music;
+			if (render_one(name, data, size, rate, adpcm, music)) {
+				char stem[32];
+				snprintf(stem, sizeof(stem), "%s", name);
+				char *dot = strchr(stem, '.');
+				if (dot) *dot = '\0';
+				char path[600];
+				snprintf(path, sizeof(path), "%s/%s.MUS", dir, stem);
+				FILE *f = fopen(path, "wb");
+				if (f) {
+					fwrite(music.data(), 1, music.size(), f);
+					fclose(f);
+					count++;
+				}
+			}
+		}
 	}
 	printf("render: %d pieces\n", count);
+	return count;
+}
+#endif
+
+extern "C" int jj_render_music_memory(void (*output)(const char *, const uint8_t *, uint32_t), int rate, bool adpcm)
+{
+	if (!output)
+		return -1;
+	int count = 0;
+	for (uint32_t i = 0; i < jj_pack_count(); i++) {
+		const char *name = jj_pack_name(i);
+		size_t len = strlen(name);
+		if (len < 5 || strcmp(name + len - 4, ".PSM") != 0)
+			continue;
+		const uint8_t *data;
+		uint32_t size;
+		if (!jj_pack_find(name, &data, &size))
+			continue;
+		std::vector<uint8_t> music;
+		if (!render_one(name, data, size, rate, adpcm, music))
+			continue;
+		char stem[32];
+		snprintf(stem, sizeof(stem), "%s", name);
+		char *dot = strchr(stem, '.');
+		if (dot) *dot = '\0';
+		char out_name[40];
+		snprintf(out_name, sizeof(out_name), "%s.MUS", stem);
+		output(out_name, music.data(), (uint32_t)music.size());
+		count++;
+	}
 	return count;
 }
 #endif

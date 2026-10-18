@@ -15,4 +15,6 @@ __pycache__/
 *.jj
 *.fb
 tools/bin/
+tools/browser/site/
+dev-local/
 release/

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Jazz Jackrabbit game data converter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Jazz Jackrabbit · Game &amp; Watch Retro-Go SD</p>
+      <h1>Prepare your game files</h1>
+      <p class="intro">Choose the folder containing your DOS Jazz Jackrabbit files. This page converts them locally in your browser; your game files are never uploaded.</p>
+    </header>
+
+    <section class="card" aria-labelledby="steps-title">
+      <h2 id="steps-title">Create the pack</h2>
+      <ol>
+        <li>Choose the folder containing files such as <code>PANEL.000</code>, <code>LEVEL0.000</code> and <code>SPRITES.000</code>.</li>
+        <li>Wait while the browser prepares pictures and music. Keep this tab open.</li>
+        <li>Download the ZIP and install it to a Retro-Go profile with <code>gwprov project install</code>.</li>
+      </ol>
+      <input id="folder" type="file" webkitdirectory directory multiple hidden>
+      <div class="actions">
+        <button id="choose" type="button">Choose game folder</button>
+        <button id="cancel" class="secondary" type="button" hidden>Cancel</button>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite">Ready. Nothing is sent to a server.</p>
+      <a id="download" class="download" hidden>Download Jazz Jackrabbit install ZIP</a>
+      <details id="details" hidden>
+        <summary>Conversion details</summary>
+        <pre id="log"></pre>
+      </details>
+    </section>
+
+    <section class="note">
+      <h2>What the ZIP contains</h2>
+      <p><code>homebrews/Jazz.bin</code> and <code>homebrews/Jazz.jj</code>. The game data pack is made from the folder you choose; the homebrew binary is included with this page.</p>
+      <p>The converter runs as a sandboxed WASM module with no imports. No files are sent to any server.</p>
+    </section>
+    <footer><a href="https://github.com/slash-proc/jazz-jackrabbit-retro-go-sd">Project source and instructions</a></footer>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

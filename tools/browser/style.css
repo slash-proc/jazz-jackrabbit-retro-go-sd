@@ -1,0 +1,24 @@
+:root { color-scheme: light dark; font: 16px/1.55 system-ui, sans-serif; --accent: #c95d25; --card: color-mix(in srgb, Canvas 94%, #888 6%); }
+* { box-sizing: border-box; }
+body { margin: 0; background: Canvas; color: CanvasText; }
+main { width: min(100% - 2rem, 720px); margin: 4rem auto; }
+header { margin-bottom: 2rem; }
+.eyebrow { color: var(--accent); font-weight: 700; letter-spacing: .04em; }
+h1 { margin: .3rem 0; font-size: clamp(2.1rem, 8vw, 3.4rem); line-height: 1.05; }
+h2 { margin-top: 0; }
+.intro { max-width: 62ch; color: color-mix(in srgb, CanvasText 78%, transparent); }
+.card, .note { padding: 1.5rem; border: 1px solid color-mix(in srgb, CanvasText 16%, transparent); border-radius: 1rem; background: var(--card); }
+ol { padding-left: 1.4rem; }
+li { margin: .6rem 0; }
+code { padding: .08rem .28rem; border-radius: .25rem; background: color-mix(in srgb, CanvasText 10%, transparent); }
+.actions { display: flex; flex-wrap: wrap; gap: .7rem; margin: 1.2rem 0 .5rem; }
+button, .download { display: inline-block; border: 0; border-radius: .55rem; padding: .75rem 1rem; background: var(--accent); color: white; font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; }
+button:disabled { opacity: .55; cursor: wait; }
+button.secondary { color: CanvasText; background: color-mix(in srgb, CanvasText 12%, Canvas); }
+.status { min-height: 1.6em; }
+.download { margin: .5rem 0; }
+.note { margin-top: 1rem; }
+footer { margin: 1.5rem 0; }
+details { margin-top: 1rem; }
+pre { max-height: 18rem; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font-size: .82rem; }
+@media (max-width: 520px) { main { margin: 2rem auto; } .card, .note { padding: 1rem; } }
