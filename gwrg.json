@@ -28,7 +28,7 @@
             "filename": "PANEL.000"
           }
         ],
-        "strict": false
+        "strict": true
       },
       {
         "id": "required-fontmn1-0fn",
@@ -49,7 +49,7 @@
             "filename": "FONTMN1.0FN"
           }
         ],
-        "strict": false
+        "strict": true
       },
       {
         "id": "required-menu-000",
@@ -70,7 +70,7 @@
             "filename": "MENU.000"
           }
         ],
-        "strict": false
+        "strict": true
       },
       {
         "id": "required-sounds-000",
@@ -91,7 +91,7 @@
             "filename": "SOUNDS.000"
           }
         ],
-        "strict": false
+        "strict": true
       },
       {
         "id": "other-game-data",
@@ -2071,7 +2071,7 @@
             "filename": "XM3.PSM"
           }
         ],
-        "strict": false
+        "strict": true
       }
     ],
     "outputs": [
