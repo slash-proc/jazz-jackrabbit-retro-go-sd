@@ -68,6 +68,12 @@
             "sha1": "28f942e39a988e20c8621406333da0beb530b3ba",
             "bytes": 222360,
             "filename": "MENU.000"
+          },
+          {
+            "id": "menu-000-cd",
+            "sha1": "ca65dcc6a3b8b535f399b639620adfc86525e88a",
+            "bytes": 220509,
+            "filename": "MENU.000"
           }
         ],
         "strict": true
@@ -2069,6 +2075,390 @@
             "sha1": "37a2ecd5d4e24dfaad007f9bcab835d952df1f84",
             "bytes": 86521,
             "filename": "XM3.PSM"
+          },
+          {
+            "id": "install-ini-cd",
+            "sha1": "75ec426a8783fd9c08a9c516481c56e979c0d539",
+            "bytes": 17918,
+            "filename": "INSTALL.INI"
+          },
+          {
+            "id": "level0-002-cd",
+            "sha1": "78b39276637216c4243945890f2988eabe3b976d",
+            "bytes": 20642,
+            "filename": "LEVEL0.002"
+          },
+          {
+            "id": "level0-004-cd",
+            "sha1": "78832ce393749c5a3a64614aa834c3a940055cfe",
+            "bytes": 14454,
+            "filename": "LEVEL0.004"
+          },
+          {
+            "id": "level0-005-cd",
+            "sha1": "08c7164e30b2f906db9203cfec65564d4e26cdf4",
+            "bytes": 20909,
+            "filename": "LEVEL0.005"
+          },
+          {
+            "id": "level0-011-cd",
+            "sha1": "f340baaccfe653fb2d98ad78251827d82d914903",
+            "bytes": 18338,
+            "filename": "LEVEL0.011"
+          },
+          {
+            "id": "level0-014-cd",
+            "sha1": "e5ca992c844a2417d85f73f26c72d6ca087a4f54",
+            "bytes": 14446,
+            "filename": "LEVEL0.014"
+          },
+          {
+            "id": "level0-015-cd",
+            "sha1": "24db5f7b650479658714080a5bb4c7d749e3e6f8",
+            "bytes": 20416,
+            "filename": "LEVEL0.015"
+          },
+          {
+            "id": "level0-016-cd",
+            "sha1": "8076a37bd1dec27b9ccae51a95ad0401f879133f",
+            "bytes": 22100,
+            "filename": "LEVEL0.016"
+          },
+          {
+            "id": "level0-017-cd",
+            "sha1": "53fd3cca6946a4f03a48bb76678d79bcc0c43f3f",
+            "bytes": 21676,
+            "filename": "LEVEL0.017"
+          },
+          {
+            "id": "level0-018-cd",
+            "sha1": "a02bee24148ac3f085fa44fb1b0175c93ff9622b",
+            "bytes": 36944,
+            "filename": "LEVEL0.018"
+          },
+          {
+            "id": "level0-019-cd",
+            "sha1": "000280e4c532ce351131a94ab2d0ab648aa8ea95",
+            "bytes": 5331,
+            "filename": "LEVEL0.019"
+          },
+          {
+            "id": "level0-020-cd",
+            "sha1": "f987580de63f2872420e1ca1c795247eb1649a09",
+            "bytes": 16580,
+            "filename": "LEVEL0.020"
+          },
+          {
+            "id": "level0-021-cd",
+            "sha1": "6ac401ce5054f24f93c1d58f173e2edff2296199",
+            "bytes": 35979,
+            "filename": "LEVEL0.021"
+          },
+          {
+            "id": "level0-022-cd",
+            "sha1": "c5162df4627f0b774b858cda5579a4a0c4503fe9",
+            "bytes": 15341,
+            "filename": "LEVEL0.022"
+          },
+          {
+            "id": "level0-023-cd",
+            "sha1": "afc9fa2278c8838df9b15335ed5605a8a0c5e7e2",
+            "bytes": 15754,
+            "filename": "LEVEL0.023"
+          },
+          {
+            "id": "level0-030-cd",
+            "sha1": "1f044a38744ab1985c27cf54a2cc8b99826bfecf",
+            "bytes": 25822,
+            "filename": "LEVEL0.030"
+          },
+          {
+            "id": "level0-031-cd",
+            "sha1": "4802a3a919cdeef232190476719bb66fb9b0cf63",
+            "bytes": 26060,
+            "filename": "LEVEL0.031"
+          },
+          {
+            "id": "level0-032-cd",
+            "sha1": "eb36d6bec5874f62f65e183c307ef36adee7b397",
+            "bytes": 23487,
+            "filename": "LEVEL0.032"
+          },
+          {
+            "id": "level0-033-cd",
+            "sha1": "b86544fcaf813faa45f30e4a9d2547f7b7c777bf",
+            "bytes": 25812,
+            "filename": "LEVEL0.033"
+          },
+          {
+            "id": "level0-034-cd",
+            "sha1": "379c8252f371d214767204dee7d13698472a5975",
+            "bytes": 26209,
+            "filename": "LEVEL0.034"
+          },
+          {
+            "id": "level0-035-cd",
+            "sha1": "f2a11d0818bab6141279d92c7147abe4d1597301",
+            "bytes": 26528,
+            "filename": "LEVEL0.035"
+          },
+          {
+            "id": "level0-036-cd",
+            "sha1": "384575da9d7672393e86f4d4891a3a8a66528a2c",
+            "bytes": 20978,
+            "filename": "LEVEL0.036"
+          },
+          {
+            "id": "level0-037-cd",
+            "sha1": "3bca7ac9c866864b5146ac7eb123e73cf7bd8839",
+            "bytes": 28691,
+            "filename": "LEVEL0.037"
+          },
+          {
+            "id": "level0-038-cd",
+            "sha1": "190f31b5eae9aae5376b8c8bd639dfc07c008342",
+            "bytes": 26836,
+            "filename": "LEVEL0.038"
+          },
+          {
+            "id": "level0-039-cd",
+            "sha1": "e61c8048abc0957fb008355c0f5768a17d18eec0",
+            "bytes": 16034,
+            "filename": "LEVEL0.039"
+          },
+          {
+            "id": "level0-040-cd",
+            "sha1": "95820aea1bb04d41d6aefcda809ebab4756a9e84",
+            "bytes": 14431,
+            "filename": "LEVEL0.040"
+          },
+          {
+            "id": "level0-041-cd",
+            "sha1": "68db6893c97e45e62155026f422a31f40b7b15d3",
+            "bytes": 14574,
+            "filename": "LEVEL0.041"
+          },
+          {
+            "id": "level0-050-cd",
+            "sha1": "832290757d959fe390c0b8432e808dbe6f16cd08",
+            "bytes": 37218,
+            "filename": "LEVEL0.050"
+          },
+          {
+            "id": "level0-051-cd",
+            "sha1": "0bd87ed679c94ef7680c4cc9433c1d8853bcbbbd",
+            "bytes": 37071,
+            "filename": "LEVEL0.051"
+          },
+          {
+            "id": "level0-052-cd",
+            "sha1": "db155235522259ba4dda96ec4ac3d113c444c940",
+            "bytes": 37599,
+            "filename": "LEVEL0.052"
+          },
+          {
+            "id": "level1-001-cd",
+            "sha1": "90d5eff5396fc29bc346ec94e345b42d352ed56a",
+            "bytes": 36333,
+            "filename": "LEVEL1.001"
+          },
+          {
+            "id": "level1-003-cd",
+            "sha1": "d6a972eca97c0199d950d571579d8a88d227e15f",
+            "bytes": 17800,
+            "filename": "LEVEL1.003"
+          },
+          {
+            "id": "level1-005-cd",
+            "sha1": "bb9cfe43e4f793b25e9107a4baf7cc260f158f7e",
+            "bytes": 20553,
+            "filename": "LEVEL1.005"
+          },
+          {
+            "id": "level1-009-cd",
+            "sha1": "639d61d418858b3d3b11f0b98e05dafea03aeff9",
+            "bytes": 17639,
+            "filename": "LEVEL1.009"
+          },
+          {
+            "id": "level1-010-cd",
+            "sha1": "3054a85043c7f9d6296406993a2443b774379a1c",
+            "bytes": 29442,
+            "filename": "LEVEL1.010"
+          },
+          {
+            "id": "level1-011-cd",
+            "sha1": "e628f985ddeae48fb15d4f4b4f2d01e30a041d9b",
+            "bytes": 21379,
+            "filename": "LEVEL1.011"
+          },
+          {
+            "id": "level1-012-cd",
+            "sha1": "f3f1674cf4643234c9c6666b1163045213b21b00",
+            "bytes": 27471,
+            "filename": "LEVEL1.012"
+          },
+          {
+            "id": "level1-013-cd",
+            "sha1": "216435f384f169295f8a13f1f5705b06a56f8fef",
+            "bytes": 24252,
+            "filename": "LEVEL1.013"
+          },
+          {
+            "id": "level1-014-cd",
+            "sha1": "1ce5879df7e4a8f51a467576189aa75d5a89a91f",
+            "bytes": 20892,
+            "filename": "LEVEL1.014"
+          },
+          {
+            "id": "level1-015-cd",
+            "sha1": "0e8910d0f79ca3f67108228c0096fb1a1fa9a3ad",
+            "bytes": 19837,
+            "filename": "LEVEL1.015"
+          },
+          {
+            "id": "level1-016-cd",
+            "sha1": "a343433383526d226faff97f267655020d45b738",
+            "bytes": 32461,
+            "filename": "LEVEL1.016"
+          },
+          {
+            "id": "level1-017-cd",
+            "sha1": "2251d1ed07553ed5d2e70ae863ccd1b276f58fb0",
+            "bytes": 23742,
+            "filename": "LEVEL1.017"
+          },
+          {
+            "id": "level1-030-cd",
+            "sha1": "df49a006a0bf14f9f4c6630a85fe4ac1e26d4f4f",
+            "bytes": 27592,
+            "filename": "LEVEL1.030"
+          },
+          {
+            "id": "level1-031-cd",
+            "sha1": "562c30ec83af5de9fa889aaf4b46416d66893ddb",
+            "bytes": 25471,
+            "filename": "LEVEL1.031"
+          },
+          {
+            "id": "level1-032-cd",
+            "sha1": "0ece5c167f3f113656792286a513b28550a7e192",
+            "bytes": 23298,
+            "filename": "LEVEL1.032"
+          },
+          {
+            "id": "level1-033-cd",
+            "sha1": "296a0d816e2f7ba93a49bee6b9b8cf462e975552",
+            "bytes": 23948,
+            "filename": "LEVEL1.033"
+          },
+          {
+            "id": "level1-034-cd",
+            "sha1": "fc6ddd63fb34b791fea988956e11063a30eed580",
+            "bytes": 29184,
+            "filename": "LEVEL1.034"
+          },
+          {
+            "id": "level1-035-cd",
+            "sha1": "0ef431ef3ae5d89b2c9c91304b4270e73b098a39",
+            "bytes": 35033,
+            "filename": "LEVEL1.035"
+          },
+          {
+            "id": "level1-036-cd",
+            "sha1": "fa8cddd81c50a40684d49f73ea392bb95b2961b3",
+            "bytes": 24203,
+            "filename": "LEVEL1.036"
+          },
+          {
+            "id": "level1-037-cd",
+            "sha1": "e682c0dfce1a6e4bfaa4225d437eb259dfb3d45b",
+            "bytes": 27619,
+            "filename": "LEVEL1.037"
+          },
+          {
+            "id": "level1-038-cd",
+            "sha1": "cdbaa5bbb8770483db9ab023ad61f1ddbc782b18",
+            "bytes": 29275,
+            "filename": "LEVEL1.038"
+          },
+          {
+            "id": "level2-000-cd",
+            "sha1": "8e97bf936bc0f6f115a282ad3384e08c7c7a8a0c",
+            "bytes": 13397,
+            "filename": "LEVEL2.000"
+          },
+          {
+            "id": "level2-004-cd",
+            "sha1": "f2192d5c3602f55c9524e8e808ab607ca557994a",
+            "bytes": 11059,
+            "filename": "LEVEL2.004"
+          },
+          {
+            "id": "level2-037-cd",
+            "sha1": "972371fc9ae2531621fbc0c4c6f797f6978d19d7",
+            "bytes": 23236,
+            "filename": "LEVEL2.037"
+          },
+          {
+            "id": "mdrv004d-mus-cd",
+            "sha1": "001abfe2fd1308770626c1820601c9d972f2a434",
+            "bytes": 9969,
+            "filename": "MDRV004D.MUS"
+          },
+          {
+            "id": "sounds-001-cd",
+            "sha1": "52495a6838d129c5f690e16fa73eb0c6d96b5b5f",
+            "bytes": 404,
+            "filename": "SOUNDS.001"
+          },
+          {
+            "id": "sounds-002-cd",
+            "sha1": "52495a6838d129c5f690e16fa73eb0c6d96b5b5f",
+            "bytes": 404,
+            "filename": "SOUNDS.002"
+          },
+          {
+            "id": "sounds-003-cd",
+            "sha1": "52495a6838d129c5f690e16fa73eb0c6d96b5b5f",
+            "bytes": 404,
+            "filename": "SOUNDS.003"
+          },
+          {
+            "id": "sounds-004-cd",
+            "sha1": "9b4e8d8550b762d02ae0a22269e2a6c42890ff0c",
+            "bytes": 17496,
+            "filename": "SOUNDS.004"
+          },
+          {
+            "id": "sounds-005-cd",
+            "sha1": "8413527c8315bd06eab8f06ffec8a02c7df356ff",
+            "bytes": 5519,
+            "filename": "SOUNDS.005"
+          },
+          {
+            "id": "sounds-006-cd",
+            "sha1": "52495a6838d129c5f690e16fa73eb0c6d96b5b5f",
+            "bytes": 404,
+            "filename": "SOUNDS.006"
+          },
+          {
+            "id": "sounds-007-cd",
+            "sha1": "52495a6838d129c5f690e16fa73eb0c6d96b5b5f",
+            "bytes": 404,
+            "filename": "SOUNDS.007"
+          },
+          {
+            "id": "sounds-008-cd",
+            "sha1": "52495a6838d129c5f690e16fa73eb0c6d96b5b5f",
+            "bytes": 404,
+            "filename": "SOUNDS.008"
+          },
+          {
+            "id": "sounds-009-cd",
+            "sha1": "52495a6838d129c5f690e16fa73eb0c6d96b5b5f",
+            "bytes": 404,
+            "filename": "SOUNDS.009"
           }
         ],
         "strict": true

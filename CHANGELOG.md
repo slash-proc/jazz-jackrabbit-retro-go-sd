@@ -7,6 +7,13 @@ section as the GitHub Release notes.
 
 ## [Unreleased]
 
+## [v1.0.3] - 2026-10-21
+
+### Fixed
+
+- Recognize the original CD's file revisions in the browser converter, while
+  continuing to skip files that do not match the known game-data hashes.
+
 ## [v1.0.2] - 2026-10-18
 
 ### Fixed

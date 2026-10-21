@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-catalog = json.loads((Path(__file__).parent / "gog-data-files.json").read_text())
+catalog = json.loads((Path(__file__).parent / "game-data-files.json").read_text())
 rows = []
 for item in catalog:
     digest = bytes.fromhex(item["sha1"])
@@ -13,7 +13,7 @@ for item in catalog:
     name = item["filename"]
     rows.append(f'    {{{{{vals}}}, "{name}"}}')
 target = Path(__file__).parent / "catalog.inc"
-target.write_text("// Generated from gog-data-files.json; do not edit.\n" +
+target.write_text("// Generated from game-data-files.json; do not edit.\n" +
                    "static const CatalogEntry CATALOG[] = {\n" +
                    ",\n".join(rows) + "\n};\n")
 print(f"wrote {target}: {len(rows)} filename variants")

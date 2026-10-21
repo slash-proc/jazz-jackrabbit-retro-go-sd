@@ -28,6 +28,9 @@ Choose the folder containing the DOS game files; the page creates a ZIP with
 `homebrews/Jazz.bin` and `homebrews/Jazz.jj`. The browser does the conversion
 on your device. Your game files are not uploaded.
 
+The converter recognizes the GOG collection and original CD file revisions
+by hash; unrelated files are skipped.
+
 1. Download the ZIP made by the browser packer above. The page processes the
    selected game folder on your device and does not upload game files.
 2. Install the ZIP to a Retro-Go profile with

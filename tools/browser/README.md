@@ -4,6 +4,8 @@ This static Page turns a selected DOS Jazz Jackrabbit folder into an install
 ZIP. Users do not need Python or a separate renderer. Conversion runs in a
 Web Worker in a standalone WebAssembly module with no imports. The selected
 files and converted pack stay in the browser; the Page does not upload them.
+Input files are matched by SHA-1 against `tools/extractor/game-data-files.json`,
+which includes the GOG and original CD revisions. Unknown files are skipped.
 
 The result is a ZIP laid out for the SD card:
 
